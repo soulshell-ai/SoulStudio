@@ -1,0 +1,135 @@
+# Docker images for ComfyUI
+
+English | 🀄 *link:README.zh.adoc[中文说明]*
+
+This repo is for 
+https://hub.docker.com/r/yanwk/comfyui-boot[Docker images] 
+that runs 
+https://github.com/comfyanonymous/ComfyUI[ComfyUI] - 
+a Stable Diffusion GUI powering node-based workflow.
+
+## Quick Start - NVIDIA GPU
+
+```sh
+mkdir -p \
+  storage \
+  storage-models/models \
+  storage-models/hf-hub \
+  storage-models/torch-hub \
+  storage-user/input \
+  storage-user/output \
+  storage-user/workflows
+
+docker run -it --rm \
+  --name comfyui \
+  --runtime nvidia \
+  --gpus all \
+  -p 8188:8188 \
+  -v "$(pwd)"/storage:/root \
+  -v "$(pwd)"/storage-models/models:/root/ComfyUI/models \
+  -v "$(pwd)"/storage-models/hf-hub:/root/.cache/huggingface/hub \
+  -v "$(pwd)"/storage-models/torch-hub:/root/.cache/torch/hub \
+  -v "$(pwd)"/storage-user/input:/root/ComfyUI/input \
+  -v "$(pwd)"/storage-user/output:/root/ComfyUI/output \
+  -v "$(pwd)"/storage-user/workflows:/root/ComfyUI/user/default/workflows \
+  -e CLI_ARGS="--disable-xformers" \
+  yanwk/comfyui-boot:cu128-slim
+```
+
+## CUDA Compatibility
+
+The supported CUDA versions for each GPU architecture are shown in the table below:
+
+[cols="1,1,1,1,1,1,1,1,1", options="header"]
+|===
+| GPU Architecture
+| Blackwell | Hopper | Ada Lovelace | Ampere | Turing | Volta | Pascal | Maxwell
+
+| Example GPU
+| RTX 5090 | H100 | RTX 4090 | RTX 3090 
+| RTX 2080 +
+GTX 1660 
+| TITAN V | GTX 1080 | GTX 980
+
+| cu130
+| ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌ | ❌ | ❌
+
+| cu128 ⭐
+| ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ❌ | ❌
+
+| cu126
+| ❌ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️
+
+|===
+
+* **CUDA 12.8 images are currently recommended**, in line with PyTorch’s 
+https://github.com/pytorch/pytorch/issues/159980[development plan].
+
+* If you are unsure about your NVIDIA GPU architecture, see
+https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/[this article].
+
+NOTE: __These CUDA compatibility limitations are due to the
+https://github.com/pytorch/pytorch/releases/tag/v2.8.0[PyTorch] toolchain,
+not the NVIDIA CUDA Toolkit.
+For more information, refer to the 
+https://github.com/pytorch/pytorch/blob/main/.ci/manywheel/build_cuda.sh[PyTorch build script].__
+
+
+## CUDA Image Tags
+
+### Slim
+
+The `slim` images start with only ComfyUI and ComfyUI-Manager, yet include many dependencies to make future Custom Node installation easier. Recommended for beginners.
+
+* link:cu126-slim/README.adoc[`cu126-slim`]
+** CUDA 12.6, Python 3.12
+
+* link:cu128-slim/README.adoc[`cu128-slim`] ⭐
+** CUDA 12.8, Python 3.12
+
+* link:cu130-slim/README.adoc[`cu130-slim`]
+** CUDA 13.0, Python 3.13 (with GIL), No xFormers
+
+### MEGAPAK
+
+The `megapak` images are all-in-one bundles, including development kits and dozens of Custom Nodes for ComfyUI.
+
+* link:cu126-megapak/README.adoc[`cu126-megapak`]
+** CUDA 12.6, Python 3.12, GCC 13
+
+* link:cu128-megapak/README.adoc[`cu128-megapak`]
+** CUDA 12.8, Python 3.12, GCC 14
+
+### Testing
+
+* link:nightly/README.adoc[`nightly`]
+** Using development version of PyTorch. For testing latest features.
+
+
+## More Image Tags
+
+* link:rocm/README.adoc[`rocm`]
+
+** For AMD GPUs with ROCm 7 (latest version).
+
+* link:rocm6/README.adoc[`rocm6`]
+
+** For AMD GPUs with ROCm 6 (stable version).
+
+* link:xpu/[`xpu`]
+
+** For Intel GPUs with XPU.
+
+* link:cpu/[`cpu`]
+
+** A smaller image for CPU only.
+
+* link:archived/[archived]
+
+** Archived Dockerfiles of retired image tags.
+
+## License
+
+link:LICENSE[Mulan Public License，Version 2]
+
+This open source license is written and valid both in Chinese and English, how good is that!
