@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Pixelle MCP Service (Unified Architecture)
+  pixelle:
+    build: .
+    ports:
+      - "9004:9004"
+    volumes:
+      - ./data:/app/data
+      - ./.env:/app/.env:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped 
