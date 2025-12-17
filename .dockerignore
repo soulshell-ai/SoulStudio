@@ -208,6 +208,7 @@ __marimo__/
 
 # 项目忽略
 third_party
+!third_party/custom_nodes/
 data
 docker_init
 README.md

@@ -60,3 +60,14 @@ git subtree add --prefix=third_party/Pixelle-Video Pixelle-Video main --squash
 git fetch Pixelle-Video main
 git subtree pull --prefix=third_party/Pixelle-Video Pixelle-Video main --squash
 ```
+## ComfyUI 自定义节点
+### IndexTTS2
+```bash
+# 引入 IndexTTS2 库, 版本为 main, 并将其添加到 third_party/custom_nodes/IndexTTS2 目录
+git remote add -f IndexTTS2 https://github.com/snicolast/ComfyUI-IndexTTS2.git
+git subtree add --prefix=third_party/custom_nodes/IndexTTS2 IndexTTS2 main --squash
+
+# 更新 IndexTTS2 库
+git fetch IndexTTS2 main
+git subtree pull --prefix=third_party/custom_nodes/IndexTTS2 IndexTTS2 main --squash
+```

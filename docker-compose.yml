@@ -3,10 +3,10 @@ services:
   comfyui:
     init: true
     container_name: comfyui
-    image: "yanwk/comfyui-boot:cu128-megapak"
-    # build:
-    #   context: ./third_party/ComfyUI-Docker/cu128-megapak/
-    #   dockerfile: Dockerfile
+    image: "comfyui:dev"
+    build:
+      context: .
+      dockerfile: Dockerfile.comfyui
     ports:
       - "8188:8188"
     volumes:
@@ -18,6 +18,8 @@ services:
       - "./data/comfyui/storage-user/input:/root/ComfyUI/input"
       - "./data/comfyui/storage-user/output:/root/ComfyUI/output"
       - "./data/comfyui/storage-user/workflows:/root/ComfyUI/user/default/workflows"
+      - "./third_party/custom_nodes:/root/ComfyUI/custom_nodes"
+      - "./data/custom_nodes/IndexTTS2/checkpoints:/root/ComfyUI/custom_nodes/IndexTTS2/checkpoints"
     environment:
       - CLI_ARGS=
     security_opt:
