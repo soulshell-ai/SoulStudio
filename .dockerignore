@@ -207,5 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 # 项目忽略
+third_party
 data
 docker_init
+README.md
