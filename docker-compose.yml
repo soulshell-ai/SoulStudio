@@ -21,6 +21,7 @@ services:
       - "./third_party/custom_nodes:/root/ComfyUI/custom_nodes"
       - "./data/custom_nodes/IndexTTS2/checkpoints:/root/ComfyUI/custom_nodes/IndexTTS2/checkpoints"
     environment:
+      - HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
       - CLI_ARGS=
     security_opt:
       # - "label=type:nvidia_container_t"

@@ -5,3 +5,10 @@ RUN pip install wetext
 RUN mkdir -p /root/ComfyUI/custom_nodes/IndexTTS2
 COPY ./third_party/custom_nodes/IndexTTS2/requirements.txt /root/ComfyUI/custom_nodes/IndexTTS2/requirements.txt
 RUN pip install -r /root/ComfyUI/custom_nodes/IndexTTS2/requirements.txt
+
+# 安装 ComfyUI SoulX-Podcast 依赖
+RUN pip install s3tokenizer
+
+# 安装 ComfyUI_LayerStyle 依赖
+RUN pip install huggingface_hub>=0.23.4 scikit_image scikit_learn
+

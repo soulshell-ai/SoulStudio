@@ -1,5 +1,5 @@
 # SoulStudio
-
+基于ComfyUI的融媒体产品
 
 ## 第三方 Docker 镜像
 ```bash
@@ -70,4 +70,25 @@ git subtree add --prefix=third_party/custom_nodes/IndexTTS2 IndexTTS2 main --squ
 # 更新 IndexTTS2 库
 git fetch IndexTTS2 main
 git subtree pull --prefix=third_party/custom_nodes/IndexTTS2 IndexTTS2 main --squash
+```
+### SoulX-Podcast
+```bash
+# 引入 SoulX-Podcast 库, 版本为 main, 并将其添加到 third_party/custom_nodes/SoulX-Podcast 目录
+git remote add -f SoulX-Podcast https://github.com/flybirdxx/ComfyUI-SoulX-Podcast.git
+git subtree add --prefix=third_party/custom_nodes/SoulX-Podcast SoulX-Podcast main --squash
+
+# 更新 SoulX-Podcast 库
+git fetch SoulX-Podcast main
+git subtree pull --prefix=third_party/custom_nodes/SoulX-Podcast SoulX-Podcast main --squash
+```
+
+### ComfyUI_LayerStyle
+```bash
+# 引入 ComfyUI_LayerStyle 库, 版本为 main, 并将其添加到 third_party/custom_nodes/ComfyUI_LayerStyle 目录
+git remote add -f ComfyUI_LayerStyle https://github.com/chflame163/ComfyUI_LayerStyle.git
+git subtree add --prefix=third_party/custom_nodes/ComfyUI_LayerStyle ComfyUI_LayerStyle main --squash
+
+# 更新 ComfyUI_LayerStyle 库
+git fetch ComfyUI_LayerStyle main
+git subtree pull --prefix=third_party/custom_nodes/ComfyUI_LayerStyle ComfyUI_LayerStyle main --squash
 ```
